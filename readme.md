@@ -136,7 +136,7 @@ Name:     kv-pep-spokepep.privatelink.vaultcore.azure.net
 Address:  10.2.0.4
 Aliases:  kv-pep-spokepep.vault.azure.net
 ```
-
+**Create a Private DNS Zone for Azure Service**
 ```bash
 # Create a Private DNS Zone for Azure Service
 pdzName=privatelink.vaultcore.azure.net
