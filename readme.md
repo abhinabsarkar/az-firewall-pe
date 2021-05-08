@@ -13,7 +13,7 @@
 az network service-endpoint list -l $location -o table
 # Get the name of type KeyVault from the service endpoint list. Note that "contains" is case-sensitive
 sepKeyVaultName=$(az network service-endpoint list -l $location | jq -r '.[] | select(.name | contains("Key")) | .name')
-# Hub Firewall VNet 
+# Hub Firewall VNet
 vnetName=vn-hub-firewall
 subnetName=sn-firewall
 # Enable service endpoint for the Subnet on Hub (Firewall) VNet 
