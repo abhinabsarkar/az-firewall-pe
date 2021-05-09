@@ -7,7 +7,7 @@ az network service-endpoint list -l $location -o table
 sepKeyVaultName=$(az network service-endpoint list -l $location | jq -r '.[] | select(.name | contains("Key")) | .name')
 # Hub Firewall VNet
 vnetName=vn-hub-firewall
-subnetName=sn-firewall
+subnetName=AzureFirewallSubnet
 # Enable service endpoint for the Subnet on Hub (Firewall) VNet 
 az network vnet subnet update -n $subnetName --vnet-name $vnetName --service-endpoints $sepKeyVaultName -g $rgName
 ```
