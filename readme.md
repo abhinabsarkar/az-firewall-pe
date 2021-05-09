@@ -6,7 +6,7 @@
 * [Create Hub-Spoke VNet & Peerings](vnet-readme.md)
 * [Configure V-Link, DNS Zone. Create Private Endpoint in Spoke (PEP) VNet ](spoke-vnet-pep-readme.md)
 * [Configure Spoke VNet for App](spoke-vnet-app-readme.md)
-* [Configure Hub (Firewall) VNet]()
+* [Configure Hub (Firewall) VNet](hub-vnet-firewall-readme.md)
 
 ## References
 * [Azure Firewall to inspect traffic destined to a private endpoint](https://docs.microsoft.com/en-us/azure/private-link/inspect-traffic-with-azure-firewall)
