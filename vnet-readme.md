@@ -6,7 +6,7 @@ az group create -n $rgName -l $location
 # Hub Firewall VNet
 vnetName=vn-hub-firewall
 vnetAddressSpace=10.0.0.0/16
-subnetName=sn-firewall
+subnetName="AzureFirewallSubnet" # this you cannot change
 subnetAddressSpace=10.0.0.0/24
 # Spoke VM (App) VNet
 vnetName=vn-spoke-app

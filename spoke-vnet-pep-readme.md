@@ -1,4 +1,6 @@
-# Create Private Endpoint for Key Vault
+# Configure V-Link, DNS Zone. Create Private Endpoint in Spoke (PEP) VNet for Key Vault
+
+> VNet Link & DNS zone creation & configuration is applicable for all VNets.
 
 ## Disable Virtual Network Policies
 Network policies like Network Security Groups (NSG) are not supported for private endpoints. In order to deploy a Private Endpoint on a given subnet, an explicit disable setting is required on that subnet. This setting is only applicable for the Private Endpoint. For other resources in the subnet, access is controlled based on Network Security Groups (NSG) security rules definition. When using the portal to create a private endpoint, this setting is automatically disabled as part of the create process.
@@ -12,6 +14,8 @@ az network vnet subnet update --name $subnetName --vnet-name $vnetName -g $rgNam
 The Domain Name System, or DNS, is responsible for translating (or resolving) a service name to an IP address. Azure DNS is a hosting service for domains and provides naming resolution using the Microsoft Azure infrastructure. Azure DNS not only supports internet-facing DNS domains, but it also supports private DNS zones.
 
 To resolve the records of a private DNS zone from your virtual network, you must link the virtual network with the zone. Linked virtual networks have full access and can resolve all DNS records published in the private zone. You can also enable autoregistration on a virtual network link. When you enable autoregistration on a virtual network link, the DNS records for the virtual machines in that virtual network are registered in the private zone. When autoregistration gets enabled, Azure DNS will update the zone record whenever a virtual machine gets created, changes its' IP address, or gets deleted.
+
+> *Auto registration works only for virtual machines. For all other resources like Private Endpoint NIC, internal load balancers, etc, you must create DNS records manually in the private DNS zone linked to the virtual network.*
 
 ![Alt text](/images/private-dns.png)
 
@@ -96,7 +100,7 @@ az network private-dns link vnet create -g $rgName --virtual-network $vnetName -
 ## Create a Key Vault
 ```bash
 # Create a Key Vault
-kvName=kv-pep-spokePep
+kvName=kv-pep-spokepep
 az keyvault create -n $kvName -g $rgName -l $location --no-wait --verbose
 # Turn on Key Vault Firewall
 az keyvault update -n $kvName -g $rgName --default-action deny --verbose
@@ -108,10 +112,20 @@ id=$(az keyvault show -n $kvName | jq -r ".id")
 vnetName=vn-spoke-pep
 subnetName=sn-pep
 pepName=pep-kv
-vlinkName=vl-kvApp
+vlinkName=vl-kvPep
 # Create private end point
-az network private-endpoint create -g $rgName --vnet-name $vnetName --subnet $subnetName --name $pepName  --private-connection-resource-id $id --group-id vault --connection-name $vlinkName -l $location
+az network private-endpoint create --name $pepName -g $rgName --vnet-name $vnetName --subnet $subnetName --private-connection-resource-id $id --group-id vault --connection-name $vlinkName -l $location
 ```
 The above command will create Private Endpoint which is a network interface that connects you privately and securely to a service powered by Azure Private Link. When a private endpoint is created, a read-only NIC with private IP in the subnet "sn-pep" is created & assigned to the Key Vault. This cannot be modified and will remain for the life cycle of the Private endpoint.
 
 ![Alt text](/images/pep.png)
+
+## Create an A-record in DNS Zone for the private endpoint
+```bash
+# Name will be the Key Vault name for which the Private Endpoint is created
+recordSetName=kv-pep-spokepep
+ip4Address=$(az network private-endpoint show -n pep-kv -g $rgName | jq -r '.customDnsConfigs[].ipAddresses[]')
+# Zone name will be the DNS zone name
+pdzName=privatelink.vaultcore.azure.net
+az network private-dns record-set a add-record --record-set-name $recordSetName -g $rgName --ipv4-address $ip4Address --zone-name $pdzName
+```
