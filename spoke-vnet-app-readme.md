@@ -24,7 +24,10 @@ az vm create --name $vmName --resource-group $rgName \
 	--subnet $subnetName \
 	--tags Identifier=VM-WIN10-B1s \
 	--verbose
+```
 
+## Cleanup resources related to VM
+```bash
 # Validate the resources created by the above command
 az resource list --tag Identifier=VM-WIN10-B1s -o table
 
