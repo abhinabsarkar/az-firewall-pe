@@ -1,7 +1,6 @@
 # Azure Firewall traffic filtering & Network Design using Private & Service Endpoint
 
 ## Hub and spoke architecture - Dedicated virtual network for private endpoints
-![Alt text](/images/hub-and-spoke.png)
 
 ![Alt text](/images/azure-network-firewall-pep-sep.png)
 
@@ -17,7 +16,7 @@
 * [Azure Firewall to inspect traffic destined to a private endpoint](https://docs.microsoft.com/en-us/azure/private-link/inspect-traffic-with-azure-firewall)
 * [Azure Private DNS Zone](https://docs.microsoft.com/en-us/azure/dns/private-dns-overview)
 * [Private Endpoint DNS Integration Scenarios](https://github.com/dmauser/PrivateLink/tree/master/DNS-Integration-Scenarios) --> Whitepaper on DNS with private link
-* * [Azure Private Link and DNS](https://bloggerz.cloud/2020/12/18/azure-private-link-and-dns/) --> Whitepaper which covers integration with on-prem scenarios deeply
+* [Azure Private Link and DNS](https://bloggerz.cloud/2020/12/18/azure-private-link-and-dns/) --> Whitepaper which covers integration with on-prem scenarios deeply
 * [V-Link/VNet Link - Virtual Network Link](https://docs.microsoft.com/en-us/azure/dns/private-dns-virtual-network-links)
 * [Integrate Key vault with Azure Private Link](https://docs.microsoft.com/en-us/azure/key-vault/general/private-link-service)
 * [Azure Private Endpoint](https://docs.microsoft.com/en-us/azure/private-link/private-endpoint-overview)
