@@ -22,6 +22,8 @@ az network public-ip create -g $rgName -n $pipName --sku Standard --tags $fwTag 
 # Create Firewall
 fwName=fw-sep
 az network firewall create --name $fwName -g $rgName --location $location --tags $fwTag --verbose
+# Get firewall's private IP Address
+fwPrivateIP=$(az network firewall show -g $rgName -n $fwName --query "ipConfigurations[0].privateIpAddress" -o tsv)
 ```
 The above command will create the Firewall resource but it won't have it associated with the Hub VNet.
 

@@ -17,7 +17,16 @@ To resolve the records of a private DNS zone from your virtual network, you must
 
 > *Auto registration works only for virtual machines. For all other resources like Private Endpoint NIC, internal load balancers, etc, you must create DNS records manually in the private DNS zone linked to the virtual network.*
 
-![Alt text](/images/private-dns.png)
+The diagram below provides more details on the DNS resolution flow when a VM in a VNET tries to resolve private endpoint:
+
+![Alt text](/images/dns-pep.png)
+
+1. VM sends a DNS query asking for IP associated to kv-pep-spokepep.vault.azure.net to Azure Provided DNS 168.63.129.16.
+2. Azure Provided DNS sends query to the authoritative DNS Server that hosts kv-pep-spokepep.vault.azure.net zone and process it.
+3. That authoritative DNS Server responds back to Azure provided DNS in the VNET with the correct CNAME: kv-pep-spokepep.privatelink.vaultcore.azure.net.
+4. Azure Provided DNS is aware that Private DNS Zone hosts privatelink.vaultcore.azure.net zone and can process as host name (A record) from kv-pep-spokepep to its private endpoint IP 10.2.0.4.
+5. Private DNS zone returns private endpoint IP back to Azure Provided DNS.
+6. As final step Azure Provided DNS returns private endpoint IP back to the client. The VM will now be able to access the KeyVault via Private Endpoint IP 10.2.0.4.
 
 ### Azure Private Endpoint DNS configuration
 The FQDN of the services resolves automatically to a public IP address. To resolve to the private IP address of the private endpoint, change your DNS configuration to use the recommended zone names as described by Microsoft. Refer this [link](https://docs.microsoft.com/en-us/azure/private-link/private-endpoint-dns#azure-services-dns-zone-configuration)
@@ -51,6 +60,10 @@ Name:     kv-pep-spokepep.privatelink.vaultcore.azure.net
 Address:  10.2.0.4
 Aliases:  kv-pep-spokepep.vault.azure.net
 ```
+Below is the summary of DNS name resolution behavior before and after enabling Private Endpoints as well as behaviors for resolution when queries are executed either on internal customer's network or external like Internet.
+
+![Alt text](/images/privatelink-dns.png)
+
 **Create a Private DNS Zone for Azure Key Vault Service**
 ```bash
 # Create a Private DNS Zone for Azure Service
