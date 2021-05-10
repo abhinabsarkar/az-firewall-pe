@@ -33,7 +33,7 @@ curl: (35) schannel: failed to receive handshake, SSL/TLS connection failed
 ```
 Ideally either it should have returned 200 OK or 403 Forbidden but the Firewall is denying all the request since there is no rule defined yet.
 
-![Alt text](/images/firewall-denied.png)
+![Alt text](images/firewall-denied.png)
 
 Lets add a Firewall rule to allow traffic to this Key Vault.
 
@@ -60,7 +60,7 @@ X-Content-Type-Options: nosniff
 Date: Mon, 10 May 2021 05:46:52 GMT
 ```
 
-![Alt text](/images/firewall-allowed.png)
+![Alt text](images/firewall-allowed.png)
 
 ## Enabling the firewall rule for all Key Vault private endpoint zones
 Update the target FQDN in the rule to "*.vault.azure.net". This will enable the traffic to all the private endpoint Key Vaults.
