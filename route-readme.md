@@ -18,6 +18,6 @@ az network route-table route create -g $rgName --route-table-name $rtName -n $ro
 # Update the Spoke App subnet with the Route table
 vnetName=vn-spoke-app
 subnetName=sn-app
-subnetId=$(az network vnet subnet show -n $subnetName --vnet-name $vnetName -g rg-firewall | jq -r ".id")
+subnetId=$(az network vnet subnet show -n $subnetName --vnet-name $vnetName -g $rgName | jq -r ".id")
 az network vnet subnet update --route-table $rtName --ids $subnetId
 ```

@@ -64,3 +64,44 @@ Date: Mon, 10 May 2021 05:46:52 GMT
 
 ## Enabling the firewall rule for all Key Vault private endpoint zones
 Update the target FQDN in the rule to "*.vault.azure.net". This will enable the traffic to all the private endpoint Key Vaults.
+
+## Create a Service Endpoint enabled KeyVault & validate connection
+```bash
+# Create a Key Vault
+kvName=kv-sep-fw
+az keyvault create -n $kvName -g $rgName -l $location --no-wait --verbose
+# Turn on Key Vault Firewall
+az keyvault update -n $kvName -g $rgName --default-action deny --verbose
+# Add keyvault network rule to the network ACLs. In this case, it is the Azure Firewall VNet & AzureFirewallSubnet
+vnetName=vn-hub-firewall
+subnetName=AzureFirewallSubnet
+az keyvault network-rule add --name $kvName --subnet $subnetName --vnet-name $vnetName -g $rgName
+```
+Update the NSG rules on the Spoke (App/VM) subnet as shown below. This will ensure that the outbound traffic internet is blocked for the VM but allowed to Key Vault.
+
+![Alt text](images/nsg.png)
+
+Validate the network connectivity by running the below commands.
+```cmd
+C:\Users\abhinab>nslookup kv-sep-fw.vault.azure.net
+Server:  UnKnown
+Address:  168.63.129.16
+
+Non-authoritative answer:
+Name:    azkms-prod-cca-3-a.cloudapp.net
+Address:  52.246.157.4
+Aliases:  kv-sep-fw.vault.azure.net
+          data-prod-cca.vaultcore.azure.net
+          data-prod-cca-region.vaultcore.azure.net
+          azkms-prod-cca-a.trafficmanager.net
+
+
+C:\Users\abhinab>curl https://kv-sep-fw.vault.azure.net -I
+HTTP/1.1 403 Forbidden
+Content-Length: 1233
+Content-Type: text/html
+X-Powered-By: ASP.NET
+Strict-Transport-Security: max-age=31536000;includeSubDomains
+X-Content-Type-Options: nosniff
+Date: Mon, 10 May 2021 20:47:29 GMT
+```
