@@ -2,7 +2,7 @@
 
 ## Hub and spoke architecture - Dedicated virtual network for private endpoints
 
-![Alt text](images/azure-network-firewall-dns-pep-sep.png)
+![Alt text](images/azure-network-firewall-dns-pep.png)
 
 1. VM sends a DNS query asking for IP associated to kv-pep-spokepep.vault.azure.net to Azure Provided DNS 168.63.129.16.
 2. Azure Provided DNS sends query to the authoritative DNS Server that hosts kv-pep-spokepep.vault.azure.net zone and process it.
@@ -12,7 +12,6 @@
 6. As final step Azure Provided DNS returns private endpoint IP back to the client.
 7. The VM will now access the IP address 10.2.0.4 over peered network with Route defined at the Subnet. The next hop would be Azure Firewall service which denies all inbound/outbound traffic by default.
 8. The Azure Firewall traffic filtering rules will allow the traffic to an instance of Key Vault Private Endpoint or the entire fqdn *.vault.azure.net based on the Security policies.
-9. The Azure Firewall traffic filtering rules will allow the traffic to Key Vault Service Endpoint *.vault.azure.net.
 
 ## Steps to create the above architecture
 * [Create Hub-Spoke VNet & Peerings](vnet-readme.md)
