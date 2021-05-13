@@ -1,16 +1,5 @@
-# Create Firewall & configure Service Endpoint  in Hub (Firewall) VNet
-## Enable Service Endpoint on Azure Firewall Hub's subnet
-```bash
-# Get the list of Service Endpoint available in a location
-az network service-endpoint list -l $location -o table
-# Get the name of type KeyVault from the service endpoint list. Note that "contains" is case-sensitive
-sepKeyVaultName=$(az network service-endpoint list -l $location | jq -r '.[] | select(.name | contains("Key")) | .name')
-# Hub Firewall VNet
-vnetName=vn-hub-firewall
-subnetName=AzureFirewallSubnet
-# Enable service endpoint for the Subnet on Hub (Firewall) VNet 
-az network vnet subnet update -n $subnetName --vnet-name $vnetName --service-endpoints $sepKeyVaultName -g $rgName
-```
+# Create Firewall & configure Service Endpoint in Hub (Firewall) VNet
+
 ## Create Azure Firewall
 ```bash
 rgName=rg-firewall

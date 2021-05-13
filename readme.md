@@ -21,6 +21,7 @@
 * [Configure Hub (Firewall) VNet](hub-vnet-firewall-readme.md)
 * [Create Route Table](route-readme.md)
 * [Validate DNS resolution & Firewall traffic filtering](validate-readme.md)
+* [Configure Service Endpoint & use it to access a Key Vault](spoke-vnet-sep-readme.md)
 
 ## References
 * [Azure Firewall to inspect traffic destined to a private endpoint](https://docs.microsoft.com/en-us/azure/private-link/inspect-traffic-with-azure-firewall)
@@ -34,3 +35,4 @@
 * [Azure firewall with service endpoints](https://docs.microsoft.com/en-us/azure/firewall/firewall-faq#how-do-i-set-up-azure-firewall-with-my-service-endpoints)
 * [Update Service Endpoint in a Subnet](https://docs.microsoft.com/en-us/cli/azure/network/vnet/subnet?view=azure-cli-latest#az_network_vnet_subnet_update)
 * [Monitor logs using Azure Firewall Workbook](https://docs.microsoft.com/en-us/azure/firewall/firewall-workbook)
+* [Configure Azure Firewall with Service Endpoints](https://techcommunity.microsoft.com/t5/fasttrack-for-azure/using-azure-firewall-as-a-network-virtual-appliance-nva/ba-p/1972934) --> Configuration
