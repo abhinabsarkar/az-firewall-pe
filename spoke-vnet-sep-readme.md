@@ -89,5 +89,5 @@ json=(curl --location --request POST 'https://login.microsoftonline.com/$tenantI
 # Get the token string
 jwt=$( jq -r ".access_token" <<<"$json" )
 # Get the secret
-curl --location --request GET "https://kv-pep.vault.azure.net/secrets/abhi/0bfb1a3722a64e6cbcc08994c0dab1b5?api-version=2016-10-01" --header 'Authorization: Bearer '$jwt''
+curl --location --request GET "https://kv-sep.vault.azure.net/secrets/abhi/3c92447c81e34af8a37608ce47ebf168?api-version=2016-10-01" --header 'Authorization: Bearer '$jwt''
 ```
