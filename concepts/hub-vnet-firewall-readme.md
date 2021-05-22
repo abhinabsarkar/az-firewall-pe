@@ -14,7 +14,7 @@ az network firewall create --name $fwName -g $rgName --location $location --tags
 ```
 The above command will create the Firewall resource but it won't have it associated with the Hub VNet.
 
-![Alt text](/images/fw-without-ipconfig.png)
+![Alt text](..//images/fw-without-ipconfig.png)
 
 Associate the IP Configuration with Hub VNet.
 ```bash
@@ -39,7 +39,7 @@ az monitor diagnostic-settings create -n $dsName --resource $monitoringResourceI
 ``` 
 The last command will create the diagnostic settings with the below configurations.
 
-![Alt text](/images/diagnostics-firewall.png)
+![Alt text](..//images/diagnostics-firewall.png)
 
 ## Clean Up
 ```bash

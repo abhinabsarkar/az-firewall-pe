@@ -1,6 +1,6 @@
 # Private Endpoint & integration with On-Prem DNS
 
-![alt txt](images/pep-on-prem.png)
+![alt txt](../images/pep-on-prem.png)
 
 ### DNS route
 1. VM sends a DNS query asking for IP associated to kv1.vault.azure.net to the internal on-premise DNS 10.1.1.4.

@@ -1,8 +1,8 @@
 # Azure Firewall traffic filtering & Network Design using Private & Service Endpoint
 
-1. [Azure Firewall with Private Endpoint & Service Endpoint](azfw-pep-readme.md)
-2. [Private Endpoint with On-premise integration. No integration with Azure Firewall](pep-on-prem-readme.md)
-3. [Service Endpoint with Azure Firewall. Detailed with Azure routing explained](azfw-sep-route-readme.md)
+1. [Azure Firewall with Private Endpoint & Service Endpoint](concepts/azfw-pep-readme.md)
+2. [Private Endpoint with On-premise integration. No integration with Azure Firewall](concepts/pep-on-prem-readme.md)
+3. [Service Endpoint with Azure Firewall. Detailed with Azure routing explained](concepts/azfw-sep-route-readme.md)
 
 ## References
 * [Azure Firewall to inspect traffic destined to a private endpoint](https://docs.microsoft.com/en-us/azure/private-link/inspect-traffic-with-azure-firewall)

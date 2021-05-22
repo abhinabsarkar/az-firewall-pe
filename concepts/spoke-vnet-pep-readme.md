@@ -19,7 +19,7 @@ To resolve the records of a private DNS zone from your virtual network, you must
 
 The diagram below provides more details on the DNS resolution flow when a VM in a VNET tries to resolve private endpoint:
 
-![Alt text](images/dns-pep.png)
+![Alt text](../images/dns-pep.png)
 
 1. VM sends a DNS query asking for IP associated to kv-pep-spokepep.vault.azure.net to Azure Provided DNS 168.63.129.16.
 2. Azure Provided DNS sends query to the authoritative DNS Server that hosts kv-pep-spokepep.vault.azure.net zone and process it.
@@ -62,7 +62,7 @@ Aliases:  kv-pep-spokepep.vault.azure.net
 ```
 Below is the summary of DNS name resolution behavior before and after enabling Private Endpoints as well as behaviors for resolution when queries are executed either on internal customer's network or external like Internet.
 
-![Alt text](images/privatelink-dns.png)
+![Alt text](../images/privatelink-dns.png)
 
 **Create a Private DNS Zone for Azure Key Vault Service**
 ```bash
@@ -81,14 +81,14 @@ When creating a link between a private DNS zone and a virtual network, you have 
 
 From the virtual network perspective, private DNS zone becomes the registration zone for that virtual network. A private DNS zone can have multiple registration virtual networks. However, every virtual network can only have one registration zone associated with it.
 
-![Alt text](images/registered-vnet.png)
+![Alt text](../images/registered-vnet.png)
 
 ### Resolution virtual network
 If you choose to link your virtual network with the private DNS zone without autoregistion, the virtual network is treated as a resolution virtual network only. DNS records for virtual machines deployed in this virtual network won't be created automatically in the private zone. However, virtual machines deployed in the virtual network can successfully query for DNS records in the private zone. These records include manually created and auto registered records from other virtual networks linked to the private DNS zone.
 
 One private DNS zone can have multiple resolution virtual networks and a virtual network can have multiple resolution zones associated to it.
 
-![Alt text](images/resolved-vnet.png)
+![Alt text](../images/resolved-vnet.png)
 
 ```bash
 # Link the Private DNS Zone to the Virtual Networks
@@ -109,7 +109,7 @@ pdzName=privatelink.vaultcore.azure.net
 az network private-dns link vnet create -g $rgName --virtual-network $vnetName --zone-name $pdzName --name $vlinkName --registration-enabled true
 ```
 
-![Alt text](images/vlink-dns.png)
+![Alt text](../images/vlink-dns.png)
 ## Create a Key Vault
 ```bash
 # Create a Key Vault
@@ -131,7 +131,7 @@ az network private-endpoint create --name $pepName -g $rgName --vnet-name $vnetN
 ```
 The above command will create Private Endpoint which is a network interface that connects you privately and securely to a service powered by Azure Private Link. When a private endpoint is created, a read-only NIC with private IP in the subnet "sn-pep" is created & assigned to the Key Vault. This cannot be modified and will remain for the life cycle of the Private endpoint.
 
-![Alt text](images/pep.png)
+![Alt text](../images/pep.png)
 
 ## Create an A-record in DNS Zone for the private endpoint
 ```bash

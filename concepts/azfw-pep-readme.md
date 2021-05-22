@@ -2,7 +2,7 @@
 
 The below architecture diagram is all in the Azure & there is no integration with On-Premise.
 
-![Alt text](images/azure-network-firewall-dns-pep.png)
+![Alt text](../images/azure-network-firewall-dns-pep.png)
 
 1. VM sends a DNS query asking for IP associated to kv-pep-spokepep.vault.azure.net to Azure Provided DNS 168.63.129.16.
 2. Azure Provided DNS sends query to the authoritative DNS Server that hosts kv-pep-spokepep.vault.azure.net zone and process it.
