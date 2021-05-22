@@ -1,5 +1,5 @@
 # Service Endpoint with Azure Firewall. How Azure routes traffic?
-> This document is an extension of the first article "Azure Firewall with Private Endpoint & Service Endpoint" which is mentioned in the [home page](readme.md). 
+> This document is an extension of the first article "Azure Firewall with Private Endpoint & Service Endpoint" which is mentioned in the [home page](../readme.md). 
 
 ![alt text](../images/azfw-sep.png)
 
