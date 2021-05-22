@@ -1,5 +1,5 @@
 # Configure Service Endpoint in Hub (Firewall) VNet & use it to access a Key Vault
-![Alt text](images/azure-network-firewall-sep.png)
+![Alt text](../images/azure-network-firewall-sep.png)
 ## Enable Service Endpoint on Azure Firewall Hub's subnet
 ```bash
 # Get the list of Service Endpoint available in a location
@@ -29,7 +29,7 @@ The above rule will disconnect the VM. So create a NAT rule in Azure Firewall to
 
 Azure Portal -> search for and click Firewalls -> click the newly-created firewall -> under Settings click Rules -> click NAT rule collection -> click Add NAT rule collection -> configure the rule using the settings below -> click Add to save the rule.
 
-![Alt text](images/firewall-NAT-allowed.png)
+![Alt text](../images/firewall-NAT-allowed.png)
 
 Next create an Application Rule in Firewall to allow traffic to Key Vault configured using Service Endpoint.
 ```bash
@@ -57,7 +57,7 @@ az keyvault network-rule add --name $kvName --subnet $subnetName --vnet-name $vn
 ```
 Update the NSG rules on the Spoke (App/VM) subnet as shown below. This will ensure that the outbound traffic internet is blocked for the VM but allowed to Key Vault.
 
-![Alt text](images/nsg.png)
+![Alt text](../images/nsg.png)
 
 ## Validate the network connectivity
 ```cmd
