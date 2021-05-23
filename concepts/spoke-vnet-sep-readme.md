@@ -13,7 +13,7 @@ subnetName=AzureFirewallSubnet
 az network vnet subnet update -n $subnetName --vnet-name $vnetName --service-endpoints $sepKeyVaultName -g $rgName
 ```
 ## Create route
-Create a route that sends all traffic from the Spoke App subnet to the Azure Firewall. This route will point all traffic (0.0.0.0/0) to the Azure Firewall private IP address.
+Create a route that sends all traffic from the Spoke App subnet to the Azure Firewall. This route will point all traffic (0.0.0.0/0) to the Azure Firewall private IP address. This route will override the default system route 0.0.0.0/0 created by Azure. To understand the changes that occur once this user defined route is created, refer [0.0.0.0/0 address prefix in Azure](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-udr-overview#default-route)
 ```bash
 routeName=AllowOutbound
 # The destination CIDR to which the route applies. In this case, it is internet since the KeyVault is public endpoint.
@@ -24,6 +24,11 @@ nextHopIPAddress=$fwPrivateIP
 az network route-table route create -g $rgName --route-table-name $rtName -n $routeName --address-prefix $destAddressCIDR --next-hop-type VirtualAppliance --next-hop-ip-address $nextHopIPAddress
 # The Spoke App subnet is already associated with the Route table, so this step is not needed here again.
 ```
+The effective route can be seen by going to the NIC of the VM --> Effective routes.
+
+> Note that the default system route created by Azure with address prefix 0.0.0.0/0 is now invalid.
+
+![alt txt](../images/effective-routes.png)
 ## Create Firewall rules
 The above rule will disconnect the VM. So create a NAT rule in Azure Firewall to allow RDP to the VM via Firewall. 
 
