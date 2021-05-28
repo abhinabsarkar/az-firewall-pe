@@ -10,6 +10,8 @@ vnetName=vn-spoke-pep
 subnetName=sn-pep
 az network vnet subnet update --name $subnetName --vnet-name $vnetName -g $rgName --disable-private-endpoint-network-policies true
 ```
+> Currently, you can't configure Network Security Group (NSG) rules and user-defined routes for private endpoints. NSG rules applied to the subnet hosting the private endpoint are not applied to the private endpoint. They are applied only to other endpoints (For example: network interface controllers). A limited workaround for this issue is to implement your access rules for private endpoints on the source subnets, though this approach may require a higher management overhead.
+
 ## Azure Private DNS Zone
 The Domain Name System, or DNS, is responsible for translating (or resolving) a service name to an IP address. Azure DNS is a hosting service for domains and provides naming resolution using the Microsoft Azure infrastructure. Azure DNS not only supports internet-facing DNS domains, but it also supports private DNS zones.
 
