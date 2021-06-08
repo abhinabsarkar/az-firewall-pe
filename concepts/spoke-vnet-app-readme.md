@@ -26,6 +26,14 @@ az vm create --name $vmName --resource-group $rgName \
 	--verbose
 ```
 
+Get the status of the VM
+```bash
+watch -d -n 5 "az vm list \
+    --resource-group $rgName \
+    --show-details \
+    --query '[*].{Name:name, ProvisioningState:provisioningState, PowerState:powerState}' \
+    --output table"
+```
 ## Cleanup resources related to VM
 ```bash
 # Validate the resources created by the above command
